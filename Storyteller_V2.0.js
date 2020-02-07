@@ -452,7 +452,7 @@ function get_better_sentence(){
                 flag = 1;
             }else if(story.charAt(i) == '”'){
                 flag = 0;
-            }else if((story.charAt(i) == ',' || story.charAt(i) == '；' || story.charAt(i) == '：' || story.charAt(i) == '。' || story.charAt(i) == '！' || story.charAt(i) == '？' || story.charAt(i) == '…') && i - st + 1 >= error_danmu_long){
+            }else if((story.charAt(i) == '，' || story.charAt(i) == '；' || story.charAt(i) == '：' || story.charAt(i) == '。' || story.charAt(i) == '！' || story.charAt(i) == '？' || story.charAt(i) == '…') && i - st + 1 >= error_danmu_long){
                 story_arr.push(story.slice(st,i + 1));
                 st = i + 1;
             }else if(i - st + 1 >= max_danmu_long){
