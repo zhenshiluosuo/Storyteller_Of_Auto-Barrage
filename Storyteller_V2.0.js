@@ -72,8 +72,8 @@ var max_danmu_long = 43;//每句长度
 var mode = 1;//工作方式：0只发送单句模式 1说书模式 2 混合模式（发送数次小说后发送一次设定的句子）
 var num = 10;//小说num句后，发送一次设定的句子
 var cycle_time = 12306;//弹幕周期，单位毫秒 建议设定至6000毫秒以上 有系统屏蔽风险
-var min_danmu_long = 15;//最小弹幕长度
-var error_danmu_long = 20;//出错弹幕长度
+var min_danmu_long = 20;//最小弹幕长度
+var error_danmu_long = 30;//出错弹幕长度
 var sentence = "嘉靖：朕要真是这样的天子，天厌之！朕要真是这样的君父，万民弃之！";
 // ----------------------------------------------
 // ----------------------------------------------
@@ -442,19 +442,22 @@ function get_better_sentence(){
             `
     }else {
         let len = story.length;
-        let st = 0, ed = 0;
+        let st = 0;
         let flag = 0;//引号标记
         for (let i = 0; i < len; i++){
             if((story.charAt(i) == '。' || story.charAt(i) == '！' || story.charAt(i) == '？' || story.charAt(i) == '…') && i - st + 1 >= min_danmu_long && !flag){
                 story_arr.push(story.slice(st,i + 1));
+                st = i + 1;
             }else if(story.charAt(i) == '“'){
                 flag = 1;
             }else if(story.charAt(i) == '”'){
                 flag = 0;
             }else if((story.charAt(i) == ',' || story.charAt(i) == '；' || story.charAt(i) == '：' ) && i - st + 1 >= error_danmu_long){
                 story_arr.push(story.slice(st,i + 1));
+                st = i + 1;
             }else if(i - st + 1 >= max_danmu_long){
                 story_arr.push(story.slice(st,i + 1));
+                st = i + 1;
             }
         }
     }
